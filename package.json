@@ -1,0 +1,18 @@
+{
+  "name": "tome-example",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.0"
+  },
+  "scripts": {
+    "start": "npm-run-all --parallel start:*",
+    "start:react": "react-scripts start",
+    "start:scss": "node-sass src/ --output src/ --output-style compressed --watch",
+    "build": "react-scripts build"
+  }
+}
