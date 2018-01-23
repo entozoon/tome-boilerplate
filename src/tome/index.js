@@ -1,15 +1,27 @@
 // import React, { Component } from "react";
 // export default class Graph extends Component {
-var articles = require("../articles/articles-compiled.json");
+let articles = require("../articles/articles-compiled.json");
 
 export default class Tome {
   constructor() {
     console.log("Hey from Tome!");
+
+    this.articles = this.parseArticles(articles);
+  }
+  // Parse the JSON for the HTML content (remove /n newline and stuff)
+  parseArticles(articles) {
+    return articles.map(_ => {
+      _.content = JSON.parse(_.content);
+      return _;
+    });
   }
   getHeader() {
     return "Testing node_module concept";
   }
   getArticles() {
-    return articles;
+    return this.articles;
+  }
+  getArticleByName(name) {
+    return this.articles.filter(_ => _.name === name)[0];
   }
 }

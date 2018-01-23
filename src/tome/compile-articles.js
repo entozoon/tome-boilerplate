@@ -1,23 +1,10 @@
-// var requireDir = require("require-dir");
-// var dir = requireDir("../articles", { recurse: true });
-
-// console.log(dir);
-
-var _ = require("lodash");
-const articlesDir = "./src/articles/",
+const _ = require("lodash"),
+  fs = require("fs"),
+  dir = require("node-dir"),
+  articlesDir = "./src/articles/",
   articlesCompiled = "articles-compiled.json";
 
-const fs = require("fs");
-
-// fs.readdirSync(articlesDir).forEach(file => {
-//   console.log(file);
-
-//   var data = fs.readFileSync(articlesDir + file, "utf8");
-//   console.log(data);
-// });
-
-const dir = require("node-dir");
-
+// Run through the articles directory looking for .json files to grab
 const parseJson = new Promise((resolve, reject) => {
   // match only filenames with a .txt extension and that don't start with a `.´
   let articlesJson = [];
@@ -28,12 +15,17 @@ const parseJson = new Promise((resolve, reject) => {
       // exclude: /^\./
       exclude: [articlesCompiled]
     },
-    (err, content, filename, next) => {
+    (err, data, filename, next) => {
       if (err) throw err;
-      content = JSON.parse(content);
+      data = JSON.parse(data);
       console.log("::::", filename, "::::");
-      // console.log("[[[[[[[[[[", content, "]]]]]]]");
-      articlesJson.push(content);
+      // console.log("[[[[[[[[[[", data, "]]]]]]]");
+
+      // add 'name' value using the folder name, because yolo
+      let filenameSplit = filename.split("\\");
+      data.name = filenameSplit[filenameSplit.length - 2];
+
+      articlesJson.push(data);
       next();
     },
     (err, files) => {
@@ -43,6 +35,7 @@ const parseJson = new Promise((resolve, reject) => {
   );
 });
 
+// Run through articles directory again, this time adding in any .html
 const addHtml = articles => {
   return new Promise((resolve, reject) => {
     let articlesHtml = [];
@@ -70,9 +63,8 @@ const addHtml = articles => {
   });
 };
 
+// Grab all the files and compile into a nice JSON file
 parseJson.then(addHtml).then(articles => {
-  console.log(articles);
-
   console.log(
     "\n\n Finished jaffing articles together!\n Saved as: " +
       articlesDir +
