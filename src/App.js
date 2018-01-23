@@ -10,8 +10,10 @@ class App extends Component {
     let tome = new Tome();
     console.log(tome);
     this.state = {
-      header: tome.getHeader()
+      header: tome.getHeader(),
+      articles: tome.getArticles()
     };
+    console.log(this.state.articles);
   }
   render() {
     return (
