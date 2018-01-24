@@ -129,7 +129,7 @@ const writeToFile = data => {
 
 dir
   .promiseFiles(articlesDir)
-  .catch(e => console.error(e))
+  .catch(console.error)
   .then(parseFilenames)
   .then(convertFilesToCompiles)
   .then(writeToFile)
