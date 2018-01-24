@@ -1,39 +1,62 @@
 [
-  {
-    "title": "Basic's Rum",
-    "price": 12.99,
-    "name": "basics-rum",
-    "filename": "src\\articles\\basics-rum\\index.html",
-    "content":
-      "\"<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ea laudantium\\n  <em>accusantium eaque quam</em>! Aperiam, earum dolor! Unde eos, eum, dolor, perferendis consectetur laboriosam facere aspernatur\\n  necessitatibus pariatur non error?</p>\\n\""
-  },
-  {
-    "title": "Glen's Vodka",
-    "price": 13.99,
-    "name": "glens-vodka",
-    "filename": "src\\articles\\glens-vodka\\index.html",
-    "html": {
-      "content": "<p>this is the whole content</p>"
+  [
+    {
+      "name": "example",
+      "revisions": {
+        "revision-1": { "name": "example", "content": "example" },
+        "revision-2": { "name": "example", "content": "example" },
+        "more": { "name": "example", "content": "example" }
+      },
+      "content": "example"
     },
-    "anythingHere": ["easy", "peasy"]
-  },
-  {
-    "title": "Glen's Vodka",
-    "price": 13.99,
-    "name": "glens-vodka",
-    "filename": "src\\articles\\glens-vodka\\index.html",
-    "html": {
-      "tasting1": "hello",
-      "tasting2": "hello again"
+    {
+      "name": "example",
+      "revisions": {
+        "revision-1": { "name": "example", "content": "example" },
+        "revision-2": { "name": "example", "content": "example" },
+        "more": { "name": "example", "content": "example" }
+      },
+      "content": { "awkward": "example" }
     }
-  },
-  {
-    "title": "Glen's Vodka",
-    "price": 13.99,
-    "name": "glens-vodka",
-    "filename": "src\\articles\\glens-vodka\\index.html",
-    "content": "<p>this is most of the content</p>",
-    "revision-1": "hello",
-    "revision-2": "hello"
-  }
+  ],
+  [
+    {
+      "name": "example",
+      "revisions": {
+        "revision-1": { "name": "example", "content": "example" },
+        "revision-2": { "name": "example", "content": "example" },
+        "more": { "name": "example", "content": "example" }
+      },
+      "content": "example"
+    },
+    {
+      "name": "example",
+      "revisions": {
+        "revision-1": { "name": "example", "content": "example" },
+        "revision-2": { "name": "example", "content": "example" },
+        "more": { "name": "example", "content": "example" }
+      },
+      "content": { "awkward": "example" }
+    }
+  ],
+  [
+    {
+      "name": "example",
+      "revisions": {
+        "revision-1": { "name": "example", "content": "example" },
+        "revision-2": { "name": "example", "content": "example" },
+        "more": { "name": "example", "content": "example" }
+      },
+      "content": "example"
+    },
+    {
+      "name": "example",
+      "revisions": {
+        "revision-1": { "name": "example", "content": "example" },
+        "revision-2": { "name": "example", "content": "example" },
+        "more": { "name": "example", "content": "example" }
+      },
+      "content": { "awkward": "example" }
+    }
+  ]
 ]
