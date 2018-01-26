@@ -78,6 +78,7 @@ const parseFilenames = files => {
   return files;
 };
 
+// Take all the files and create a useful data structure
 const convertFilesToCompiles = files =>
   new Promise((resolve, reject) => {
     let compiles = {};
@@ -93,7 +94,6 @@ const convertFilesToCompiles = files =>
       }
     });
 
-    // Solve everything with set timeouts
     files.forEach(file => {
       if (file.type === "html") {
         let injectPath = _.concat(file.pathSplit, file.nameStrip).join(".");
@@ -103,8 +103,6 @@ const convertFilesToCompiles = files =>
       }
     });
 
-    // console.log("\n" + JSON.stringify(compiles) + "\n");
-
     // Convert the key value style object into an array of objects, collection style!
     compiles = _.toArray(compiles);
 
@@ -113,18 +111,21 @@ const convertFilesToCompiles = files =>
     resolve(compiles);
   });
 
+// Write data into a nice JSON file
 const writeToFile = data => {
-  console.log(
-    "\n\n Finished jaffing articles together!\n Saved as: " +
-      articlesDir +
-      articlesCompiled
-  );
-  fs.writeFile(
-    articlesDir + articlesCompiled,
-    JSON.stringify(data),
-    err => console.error
-  );
-  resolve(data);
+  return new Promise((resolve, reject) => {
+    console.log(
+      "\n\n Finished jaffing articles together!\n Saved as: " +
+        articlesDir +
+        articlesCompiled
+    );
+    fs.writeFileSync(
+      articlesDir + articlesCompiled,
+      JSON.stringify(data),
+      err => reject
+    );
+    resolve(data);
+  });
 };
 
 dir
@@ -132,89 +133,5 @@ dir
   .catch(console.error)
   .then(parseFilenames)
   .then(convertFilesToCompiles)
-  .then(writeToFile)
-  .then(console.log);
-
-// dir.readFiles(
-//   articlesDir,
-//   {
-//     recursive: true
-//   },
-//   (err, data, filename, next) => {
-//     console.log(filename);
-//     next();
-//   }
-// );
-
-// // Run through the articles directory looking for .json files to grab
-// const parseJson = new Promise((resolve, reject) => {
-//   // match only filenames with a .txt extension and that don't start with a `.´
-//   let articlesJson = [];
-//   dir.readFiles(
-//     articlesDir,
-//     {
-//       match: /.json$/,
-//       // exclude: /^\./
-//       exclude: [articlesCompiled]
-//     },
-//     (err, data, filename, next) => {
-//       if (err) throw err;
-//       data = JSON.parse(data);
-//       console.log("::::", filename, "::::");
-//       // console.log("[[[[[[[[[[", data, "]]]]]]]");
-
-//       // add 'name' value using the folder name, because yolo
-//       let filenameSplit = filename.split("\\");
-//       data.name = filenameSplit[filenameSplit.length - 2];
-
-//       articlesJson.push(data);
-//       next();
-//     },
-//     (err, files) => {
-//       console.log("\n\n Finished jaffing articles together!\n");
-//       resolve(articlesJson);
-//     }
-//   );
-// });
-
-// // Run through articles directory again, this time adding in any .html
-// const addHtml = articles => {
-//   return new Promise((resolve, reject) => {
-//     let articlesHtml = [];
-//     dir.readFiles(
-//       articlesDir,
-//       {
-//         match: /.html$/
-//         // exclude: /^\./
-//       },
-//       (err, content, filename, next) => {
-//         if (err) throw err;
-//         articlesHtml.push({
-//           // same as articlesJson, ready to merge later
-//           filename: filename,
-//           content: JSON.stringify(content)
-//         });
-//         next();
-//       },
-//       (err, files) => {
-//         // Merge the html content into the articles so far
-//         _.merge(articles, articlesHtml);
-//         resolve(articles);
-//       }
-//     );
-//   });
-// };
-
-// // Grab all the files and compile into a nice JSON file
-// parseJson.then(addHtml).then(articles => {
-//   console.log(
-//     "\n\n Finished jaffing articles together!\n Saved as: " +
-//       articlesDir +
-//       articlesCompiled
-//   );
-//   fs.writeFile(
-//     articlesDir + articlesCompiled,
-//     JSON.stringify(articles),
-//     err => console.error
-//   );
-// });
+  .then(writeToFile);
+// .then(console.log);

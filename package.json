@@ -12,8 +12,7 @@
   "scripts": {
     "start": "npm-run-all --parallel start:*",
     "start:react": "react-scripts start",
-    "start:scss":
-      "node-sass src/ --output src/ --output-style compressed --watch",
+    "start:scss": "node-sass src/ --output src/ --output-style compressed --watch",
     "build": "react-scripts build",
     "compile:articles": "node src/tome/compile-articles.js"
   }
