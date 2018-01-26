@@ -88,7 +88,7 @@ const convertFilesToCompiles = files =>
 
       if (file.name === "data.json") {
         let injectPath = _.concat(file.pathSplit).join("."); // Pull it up out of .data
-        content = JSON.parse(fs.readFileSync(file.path, "utf8"));
+        let content = JSON.parse(fs.readFileSync(file.path, "utf8"));
 
         _.set(compiles, injectPath, content); // SO CLOSE but jaffs integers wrong
       }
@@ -98,7 +98,11 @@ const convertFilesToCompiles = files =>
       if (file.type === "html") {
         let injectPath = _.concat(file.pathSplit, file.nameStrip).join(".");
 
-        content = JSON.stringify(fs.readFileSync(file.path, "utf8"));
+        let content = fs.readFileSync(file.path, "utf8");
+        // content = JSON.stringify(content);
+        // Trim " quotes
+        // content = content.substring(1, content.length - 1);
+        // Update, maybe not necessary at all? It seems to automagic it
         _.set(compiles, injectPath, content); // SO CLOSE but jaffs integers wrong
       }
     });
@@ -115,7 +119,7 @@ const convertFilesToCompiles = files =>
 const writeToFile = data => {
   return new Promise((resolve, reject) => {
     console.log(
-      "\n\n Finished jaffing articles together!\n Saved as: " +
+      "\n Finished jaffing articles together!\n Saved as: " +
         articlesDir +
         articlesCompiled
     );

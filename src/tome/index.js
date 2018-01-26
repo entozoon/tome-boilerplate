@@ -6,15 +6,17 @@ export default class Tome {
   constructor() {
     console.log("Hey from Tome!");
 
-    this.articles = this.parseArticles(articles);
+    // this.articles = this.parseArticles(articles);
+    this.articles = articles;
   }
   // Parse the JSON for the HTML content (remove /n newline and stuff)
-  parseArticles(articles) {
-    return articles.map(_ => {
-      _.content = JSON.parse(_.content);
-      return _;
-    });
-  }
+  // parseArticles(articles) {
+  //   console.log(articles);
+  //   return articles.map(_ => {
+  //     _.content = JSON.parse(_.content);
+  //     return _;
+  //   });
+  // }
   getHeader() {
     return "Testing node_module concept";
   }

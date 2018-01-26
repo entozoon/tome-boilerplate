@@ -27,10 +27,10 @@ class App extends Component {
     });
   }
 
-  // Get a specific article from the data
-  renderArticleByName(name) {
-    return this.renderArticle(this.tome.getArticleByName(name));
-  }
+  // // Get a specific article from the data
+  // renderArticleByName(name) {
+  //   return this.renderArticle(this.tome.getArticleByName(name));
+  // }
 
   // Return HTML for article data
   renderArticle(article, key) {
@@ -56,9 +56,9 @@ class App extends Component {
         <main>
           <p>{this.state.header}</p>
 
-          <hr />
+          {/* <hr />
           <h2>Specific article 'glens-vodka':</h2>
-          <div>{this.renderArticleByName("glens-vodka")}</div>
+          <div>{this.renderArticleByName("glens-vodka")}</div> */}
 
           <hr />
           <h2>All Articles:</h2>
