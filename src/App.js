@@ -2,6 +2,21 @@ import React, { Component } from "react";
 // import Tome from "tome"; // <- When it's a node_module
 import Tome from "./tome";
 import "./App.css";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+const Home = () => (
+  <div>
+    <h2>Home</h2>
+  </div>
+);
+
+const About = () => (
+  <div>
+    <h2>About</h2>
+    <p>Is that all it is..?</p>
+    <p>Probably not worth abstracting to the node module</p>
+  </div>
+);
 
 class App extends Component {
   constructor() {
@@ -37,7 +52,7 @@ class App extends Component {
     return (
       <div key={key}>
         <a href="#" onClick={this.navClick}>
-          {article.title} ({article.name})
+          {article.title}
         </a>
         <br />
         £{article.price}
@@ -52,7 +67,26 @@ class App extends Component {
       <div>
         <header>
           <h1>Tome Use Example</h1>
+
+          <Router>
+            <div>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/about">About</Link>
+                </li>
+              </ul>
+
+              <hr />
+
+              <Route exact path="/" component={Home} />
+              <Route path="/about" component={About} />
+            </div>
+          </Router>
         </header>
+
         <main>
           <p>{this.state.header}</p>
 
