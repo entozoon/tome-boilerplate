@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-// import Tome from "tome"; // <- When it's a node_module
-import Tome from "./tome";
+import Tome from "tome"; // <- When it's a node_module
 import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+const tome = new Tome();
 
 const Home = () => (
   <div>
@@ -18,26 +19,41 @@ const About = () => (
 
 // const Article = name => <div>{{ name }}</div>;
 const Article = name => {
-  console.log("If this is actually an article show it..?", name.match.params);
+  // console.log("If this is actually an article show it..?", name.match.params.articleTitle);
+  let article = tome.getArticleByTitle(name.match.params.articleTitle);
+  console.log(article);
 
-  return <div>If this is actually an article show it here</div>;
+  return renderArticle(article);
+};
+
+// Return HTML for article data
+const renderArticle = (article, key) => {
+  return (
+    <div key={key}>
+      <a href="#" onClick={this.navClick}>
+        {article.title}
+      </a>
+      <br />
+      £{article.price}
+      <br />
+      <div dangerouslySetInnerHTML={{ __html: article.content }} />
+    </div>
+  );
 };
 
 class App extends Component {
   constructor() {
     super();
 
-    this.tome = new Tome();
-
     this.state = {
-      header: this.tome.getHeader(),
-      articles: this.tome.getArticles()
+      header: tome.getHeader(),
+      articles: tome.getArticles()
     };
     console.log("Articles::", this.state.articles);
 
-    let string = "Satan's Revenge";
-    console.log(this.tome.titleToUrl(string));
-    console.log(this.tome.urlToTitle(this.tome.titleToUrl(string)));
+    // console.log(tome.titleToUrl("Satan's Revengencer"));
+    // console.log(tome.getArticleByTitle("Article Name"));
+    // console.log(tome.getArticleByTitle("Article Name Other's And Stuff"));
   }
 
   navClick(e) {
@@ -53,25 +69,18 @@ class App extends Component {
 
   // // Get a specific article from the data
   // renderArticleByTitle(title) {
-  //   return this.renderArticle(this.tome.getArticleByTitle(title));
+  //   return this.renderArticle(tome.getArticleByTitle(title));
   // }
 
-  // Return HTML for article data
-  renderArticle(article, key) {
-    return (
-      <div key={key}>
-        <a href="#" onClick={this.navClick}>
-          {article.title}
-        </a>
-        <br />
-        £{article.price}
-        <br />
-        <div dangerouslySetInnerHTML={{ __html: article.content }} />
-      </div>
-    );
-  }
-
   render() {
+    let articleLinksOrWhatever = this.state.articles.map((article, i) => {
+      return (
+        <Link key={i} to={article.url}>
+          {article.title}
+        </Link>
+      );
+    });
+
     return (
       <Router>
         <div>
@@ -90,7 +99,11 @@ class App extends Component {
                 </ul>
               </nav>
 
-              <Route path={`/:articleId`} component={Article} />
+              <nav>
+                <ul>{articleLinksOrWhatever}</ul>
+              </nav>
+
+              <Route path={`/:articleTitle`} component={Article} />
               <Route exact path="/" component={Home} />
               <Route exact path="/about" component={About} />
             </div>
@@ -105,7 +118,7 @@ class App extends Component {
 
             <hr />
             <h2>All Articles:</h2>
-            <div>{this.renderArticleListings()}</div>
+            {/* <div>{this.renderArticleListings()}</div> */}
           </main>
         </div>
       </Router>
