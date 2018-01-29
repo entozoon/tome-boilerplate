@@ -6,17 +6,22 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Home = () => (
   <div>
-    <h2>Home</h2>
+    <h1>Home page</h1>
   </div>
 );
 
 const About = () => (
   <div>
-    <h2>About</h2>
-    <p>Is that all it is..?</p>
-    <p>Probably not worth abstracting to the node module</p>
+    <h1>About</h1>
   </div>
 );
+
+// const Article = name => <div>{{ name }}</div>;
+const Article = name => {
+  console.log("If this is actually an article show it..?", name.match.params);
+
+  return <div>If this is actually an article show it here</div>;
+};
 
 class App extends Component {
   constructor() {
@@ -64,41 +69,42 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <header>
-          <h1>Tome Use Example</h1>
+      <Router>
+        <div>
+          <header>
+            <h1>Tome Use Example</h1>
 
-          <Router>
             <div>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/about">About</Link>
-                </li>
-              </ul>
+              <nav>
+                <ul>
+                  <li>
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/about">About</Link>
+                  </li>
+                </ul>
+              </nav>
 
-              <hr />
-
+              <Route path={`/:articleId`} component={Article} />
               <Route exact path="/" component={Home} />
-              <Route path="/about" component={About} />
+              <Route exact path="/about" component={About} />
             </div>
-          </Router>
-        </header>
+          </header>
 
-        <main>
-          <p>{this.state.header}</p>
+          <main>
+            <p>{this.state.header}</p>
 
-          {/* <hr />
+            {/* <hr />
           <h2>Specific article 'glens-vodka':</h2>
-          <div>{this.renderArticleByName("glens-vodka")}</div> */}
+        <div>{this.renderArticleByName("glens-vodka")}</div> */}
 
-          <hr />
-          <h2>All Articles:</h2>
-          <div>{this.renderArticleListings()}</div>
-        </main>
-      </div>
+            <hr />
+            <h2>All Articles:</h2>
+            <div>{this.renderArticleListings()}</div>
+          </main>
+        </div>
+      </Router>
     );
   }
 }
