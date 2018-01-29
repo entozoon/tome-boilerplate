@@ -1,8 +1,6 @@
 {
   "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -19,7 +17,7 @@
   },
   "rules": {
     "comma-dangle": 1,
-    "quotes": [ 1, "single" ],
+    "quotes": [1, "single"],
     "no-undef": 0,
     "global-strict": 0,
     "no-extra-semi": 1,
@@ -28,6 +26,7 @@
     "no-unused-vars": 0,
     "no-trailing-spaces": [1, { "skipBlankLines": true }],
     "no-unreachable": 1,
+    "no-restricted-globals": ["isNaN"],
     "no-alert": 0,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1

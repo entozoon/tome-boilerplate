@@ -34,6 +34,10 @@ class App extends Component {
       articles: this.tome.getArticles()
     };
     console.log("Articles::", this.state.articles);
+
+    let string = "Satan's Revenge";
+    console.log(this.tome.titleToUrl(string));
+    console.log(this.tome.urlToTitle(this.tome.titleToUrl(string)));
   }
 
   navClick(e) {
@@ -48,8 +52,8 @@ class App extends Component {
   }
 
   // // Get a specific article from the data
-  // renderArticleByName(name) {
-  //   return this.renderArticle(this.tome.getArticleByName(name));
+  // renderArticleByTitle(title) {
+  //   return this.renderArticle(this.tome.getArticleByTitle(title));
   // }
 
   // Return HTML for article data
