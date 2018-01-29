@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Tome from "tome"; // <- When it's a node_module
 import "./App.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 const tome = new Tome();
 
@@ -17,19 +17,33 @@ const About = () => (
   </div>
 );
 
-// const Article = name => <div>{{ name }}</div>;
-const Article = name => {
-  // console.log("If this is actually an article show it..?", name.match.params.articleTitle);
-  let article = tome.getArticleByTitle(name.match.params.articleTitle);
-  console.log(article);
+// const Article = (name, _this) => {
+class Article extends React.Component {
+  constructor(name) {
+    super();
+    // If this is actually an article, show it.
 
-  return renderArticle(article);
-};
+    this.article = tome.getArticleByTitle(name.match.params.articleTitle);
+    console.log("hello");
+    console.log(this);
+    console.log(name);
+  }
+  render() {
+    if (!this.article) {
+      // Need to be using REDUX for this stuff, tl;dr
+      // this.props.passUp("home");
+      return <p>No article found.</p>;
+    } else {
+      // this.props.passUp("detail");
+      return renderArticle(this.article);
+    }
+  }
+}
 
 // Return HTML for article data
-const renderArticle = (article, key) => {
+const renderArticle = article => {
   return (
-    <div key={key}>
+    <div>
       <a href="#" onClick={this.navClick}>
         {article.title}
       </a>
@@ -47,7 +61,8 @@ class App extends Component {
 
     this.state = {
       header: tome.getHeader(),
-      articles: tome.getArticles()
+      articles: tome.getArticles(),
+      page: "home"
     };
     console.log("Articles::", this.state.articles);
 
@@ -72,12 +87,16 @@ class App extends Component {
   //   return this.renderArticle(tome.getArticleByTitle(title));
   // }
 
+  passUp() {
+    console.log("pass up");
+  }
+
   render() {
     let articleLinksOrWhatever = this.state.articles.map((article, i) => {
       return (
-        <Link key={i} to={article.url}>
-          {article.title}
-        </Link>
+        <li key={i}>
+          <Link to={article.url}>{article.title}</Link>
+        </li>
       );
     });
 
@@ -103,9 +122,17 @@ class App extends Component {
                 <ul>{articleLinksOrWhatever}</ul>
               </nav>
 
-              <Route path={`/:articleTitle`} component={Article} />
-              <Route exact path="/" component={Home} />
-              <Route exact path="/about" component={About} />
+              {/* Switch makes it so only the first matching Route is displayed */}
+              <Switch>
+                {/* When path is matched, Route returns a new given component */}
+                <Route
+                  path={`/:articleTitle`}
+                  component={Article}
+                  passUp={this.passUp}
+                />
+                <Route exact path="/" component={Home} />
+                <Route exact path="/about" component={About} />
+              </Switch>
             </div>
           </header>
 
