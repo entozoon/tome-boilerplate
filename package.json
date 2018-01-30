@@ -13,10 +13,12 @@
     "react-scripts": "1.1.0"
   },
   "scripts": {
+    "prestart": "npm run compile",
     "start": "npm-run-all --parallel start:*",
     "start:react": "react-scripts start",
-    "start:scss": "node-sass src/ --output src/ --output-style compressed --watch",
-    "prebuild": "del-cli docs",
+    "start:scss":
+      "node-sass src/ --output src/ --output-style compressed --watch",
+    "prebuild": "del-cli docs && npm run compile",
     "build": "react-scripts build && ren build docs",
     "compile": "node node_modules/tome/compile-articles.js"
   },

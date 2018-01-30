@@ -1,5 +1,7 @@
 # Tome
 
+[**Demo**](https://entozoon.github.io/tome-boilerplate/)
+
 ## Install project
 
     npm i
@@ -10,12 +12,16 @@
 
     cd src/tome && npm i && cd ..
 
-## Start site
+## Dev
 
     npm start
 
-## Compile articles
+## Compile articles (also happens before start/build)
 
-(Will be built into npm start eventually)
+    npm run compile
 
-    npm run compile:articles
+## Deploy
+
+    npm run build
+
+Then push as normal - the `/docs` folder is set up as the dist for github pages.
