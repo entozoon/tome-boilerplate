@@ -1,6 +1,6 @@
-# Tome
+# Tome of the Unknown Boilerplate
 
-[**Demo**](https://entozoon.github.io/tome-boilerplate/)
+[**Demonstration**](https://entozoon.github.io/tome-boilerplate/) of how you might go about using the [Tome of the Unknown](https://entozoon.github.io/tome-of-the-unknown) package.
 
 ## Install project
 
