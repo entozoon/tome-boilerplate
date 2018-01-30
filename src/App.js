@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Tome from "tome-of-the-unknown"; // <- When it's a node_module
 import "./App.css";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
 
@@ -114,7 +114,7 @@ class App extends Component {
       );
     });
     return (
-      <Router basename={"/" + appDirectory ? appDirectory : ""}>
+      <BrowserRouter basename={"/" + appDirectory ? appDirectory : ""}>
         <div>
           <header>
             <h1>Tome Use Example</h1>
@@ -138,10 +138,10 @@ class App extends Component {
               {/* Switch makes it so only the first matching Route is displayed */}
               <Switch>
                 {/* When path is matched, Route returns a new given component */}
-                <Route exact path={appDirectory} component={Home} />
-                <Route exact path={appDirectory + "about"} component={About} />
+                <Route exact path="/" component={Home} />
+                <Route exact path="/about" component={About} />
                 <Route
-                  path={appDirectory + ":articleTitle"}
+                  path={"/:articleTitle"}
                   component={Article}
                   passUp={this.passUp}
                 />
@@ -153,7 +153,7 @@ class App extends Component {
             <p>{this.state.header}</p>
           </main>
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }
