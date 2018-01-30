@@ -1,5 +1,6 @@
 {
-  "name": "tome-example",
+  "name": "tome-boilerplate",
+  "homepage": "https://entozoon.github.io/tome-boilerplate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,9 +15,12 @@
   "scripts": {
     "start": "npm-run-all --parallel start:*",
     "start:react": "react-scripts start",
-    "start:scss":
-      "node-sass src/ --output src/ --output-style compressed --watch",
+    "start:scss": "node-sass src/ --output src/ --output-style compressed --watch",
+    "prebuild": "del-cli docs",
     "build": "react-scripts build && ren build docs",
     "compile": "node node_modules/tome/compile-articles.js"
+  },
+  "devDependencies": {
+    "del-cli": "^1.1.0"
   }
 }

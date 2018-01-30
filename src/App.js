@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Tome from "tome"; // <- When it's a node_module
 import "./App.css";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+console.log(Tome);
 
 const tome = new Tome();
 
