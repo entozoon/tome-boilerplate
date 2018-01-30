@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Tome from "tome-of-the-unknown"; // <- When it's a node_module
 import "./App.css";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { HashRouter, Route, Link, Switch } from "react-router-dom";
 
 let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
 
@@ -114,7 +114,7 @@ class App extends Component {
       );
     });
     return (
-      <BrowserRouter basename={"/" + appDirectory ? appDirectory : ""}>
+      <HashRouter basename={"/" + appDirectory ? appDirectory : ""}>
         <div>
           <header>
             <h1>Tome Use Example</h1>
@@ -153,7 +153,7 @@ class App extends Component {
             <p>{this.state.header}</p>
           </main>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
