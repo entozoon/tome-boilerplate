@@ -6,12 +6,6 @@
 
     npm i
 
-## Install tome package
-
-(Won't be necessary eventually)
-
-    cd src/tome && npm i && cd ..
-
 ## Dev
 
     npm start

@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import Tome from "tome"; // <- When it's a node_module
 import "./App.css";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-console.log(Tome);
+
+let appDirectory = "tome-of-the-unknown"; // this may typically be null, if on a custom domain
+
+if (process.env.NODE_ENV === "development") {
+  // No subdir if localhost
+  appDirectory = "/";
+}
 
 const tome = new Tome();
 
@@ -108,7 +114,7 @@ class App extends Component {
       );
     });
     return (
-      <Router>
+      <Router basename={"/" + appDirectory ? appDirectory : ""}>
         <div>
           <header>
             <h1>Tome Use Example</h1>
