@@ -138,10 +138,10 @@ class App extends Component {
               {/* Switch makes it so only the first matching Route is displayed */}
               <Switch>
                 {/* When path is matched, Route returns a new given component */}
-                <Route exact path="/" component={Home} />
-                <Route exact path="/about" component={About} />
+                <Route exact path={appDirectory} component={Home} />
+                <Route exact path={appDirectory + "about"} component={About} />
                 <Route
-                  path={"/:articleTitle"}
+                  path={appDirectory + ":articleTitle"}
                   component={Article}
                   passUp={this.passUp}
                 />
