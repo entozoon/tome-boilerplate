@@ -16,7 +16,7 @@
     "start:react": "react-scripts start",
     "start:scss":
       "node-sass src/ --output src/ --output-style compressed --watch",
-    "build": "react-scripts build",
+    "build": "react-scripts build && ren build docs",
     "compile": "node node_modules/tome/compile-articles.js"
   }
 }

@@ -20,13 +20,10 @@ const About = () => (
 // const Article = (name, _this) => {
 class Article extends React.Component {
   constructor(name) {
+    console.log("article");
     super();
     // If this is actually an article, show it.
-
     this.article = tome.getArticleByTitle(name.match.params.articleTitle);
-    console.log("hello");
-    console.log(this);
-    console.log(name);
   }
   render() {
     if (!this.article) {
@@ -62,7 +59,7 @@ class App extends Component {
     this.state = {
       header: tome.getHeader(),
       articles: tome.getArticles(),
-      page: "home"
+      renderFlop: false
     };
     console.log("Articles::", this.state.articles);
 
@@ -91,15 +88,24 @@ class App extends Component {
     console.log("pass up");
   }
 
+  // reRender
+  // Force a re-render via click event (avoid ofc)
+  reRender(e) {
+    this.setState({ renderFlop: !this.state.renderFlop });
+  }
+
   render() {
+    console.log("render");
+
     let articleLinksOrWhatever = this.state.articles.map((article, i) => {
       return (
         <li key={i}>
-          <Link to={article.url}>{article.title}</Link>
+          <Link to={article.url} onClick={this.reRender.bind(this)}>
+            {article.title}
+          </Link>
         </li>
       );
     });
-
     return (
       <Router>
         <div>
@@ -125,27 +131,19 @@ class App extends Component {
               {/* Switch makes it so only the first matching Route is displayed */}
               <Switch>
                 {/* When path is matched, Route returns a new given component */}
+                <Route exact path="/" component={Home} />
+                <Route exact path="/about" component={About} />
                 <Route
-                  path={`/:articleTitle`}
+                  path={"/:articleTitle"}
                   component={Article}
                   passUp={this.passUp}
                 />
-                <Route exact path="/" component={Home} />
-                <Route exact path="/about" component={About} />
               </Switch>
             </div>
           </header>
 
           <main>
             <p>{this.state.header}</p>
-
-            {/* <hr />
-          <h2>Specific article 'glens-vodka':</h2>
-        <div>{this.renderArticleByName("glens-vodka")}</div> */}
-
-            <hr />
-            <h2>All Articles:</h2>
-            {/* <div>{this.renderArticleListings()}</div> */}
           </main>
         </div>
       </Router>
