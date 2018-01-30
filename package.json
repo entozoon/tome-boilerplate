@@ -18,10 +18,13 @@
     "prestart": "npm run compile",
     "start": "npm-run-all --parallel start:*",
     "start:react": "cross-env NODE_ENV=development react-scripts start",
-    "start:scss": "node-sass src/ --output src/ --output-style compressed --watch",
+    "start:scss":
+      "node-sass src/ --output src/ --output-style compressed --watch",
     "prebuild": "del-cli docs && npm run compile",
     "build": "react-scripts build && ren build docs",
-    "compile": "node node_modules/tome-of-the-unknown/compile-articles.js"
+    "compile": "node node_modules/tome-of-the-unknown/compile-articles.js",
+    "deploy":
+      "npm run build && git add --all && git commit -m \"Deploy\" && git push"
   },
   "devDependencies": {
     "del-cli": "^1.1.0"

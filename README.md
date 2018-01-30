@@ -16,6 +16,6 @@
 
 ## Deploy
 
-    npm run build
+    npm run deploy
 
-Then push as normal - the `/docs` folder is set up as the dist for github pages.
+Note, this builds and then pushes to git. The `/docs` folder is set up as the dist for github pages.
