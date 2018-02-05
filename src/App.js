@@ -12,19 +12,25 @@ if (process.env.NODE_ENV === "development") {
 
 const tome = new Tome();
 
-const Index = () => (
-  <div>
-    <h1>Welcome</h1>
-    <p>Index Page</p>
-  </div>
-);
+const Index = props => {
+  props.parent.setPageType("index");
+  return (
+    <div>
+      <h1>Welcome</h1>
+      <p>Index Page</p>
+    </div>
+  );
+};
 
-const About = () => (
-  <div>
-    <h1>About</h1>
-    <p>About Me</p>
-  </div>
-);
+const About = props => {
+  props.parent.setPageType("about");
+  return (
+    <div>
+      <h1>About</h1>
+      <p>About Me</p>
+    </div>
+  );
+};
 
 // const Article = (name, _this) => {
 class Article extends React.Component {
@@ -50,14 +56,14 @@ class Article extends React.Component {
     this.setState({
       article: article
     });
+    // Should be using REDUX for this stuff, tl;dr
+    this.props.parent.setPageType("detail");
   }
 
   render() {
     if (!this.state.article) {
       return <p>No article found.</p>;
     } else {
-      // Should be using REDUX for this stuff, tl;dr
-      this.props.notifyPageChange("detail");
       return renderArticle(this.state.article);
     }
   }
@@ -67,10 +73,8 @@ class Article extends React.Component {
 const renderArticle = article => {
   return (
     <div>
-      <a href="#" onClick={this.navClick}>
-        {article.title}
-      </a>
-      <br />
+      <Link to="/">&laquo; Back</Link>
+      <h1>{article.title}</h1>
       £{article.price}
       <br />
       <div dangerouslySetInnerHTML={{ __html: article.content }} />
@@ -83,7 +87,7 @@ class App extends Component {
     super();
 
     this.state = {
-      page: "index",
+      pageType: "index",
       articles: tome.getArticles(),
       renderFlop: false
     };
@@ -100,18 +104,12 @@ class App extends Component {
 
   // Use the articles array we have to create listing HTML for each
   renderArticleListings() {
-    console.log(this.state.page);
-
-    if (this.state.page === "index") {
+    // Only show listings on index
+    if (this.state.pageType === "index") {
       return this.state.articles.map((article, i) => {
         return (
           <div key={i} className="article__listing">
-            {/* <Link to={article.url} onClick={this.reRender.bind(this)}>
-            {article.title}
-          </Link> */}
-            <Link to={article.url} replace={true}>
-              {article.title}
-            </Link>
+            <Link to={article.url}>{article.title}</Link>
             <div>{this.snippet(article.content, 10)}</div>
           </div>
         );
@@ -124,8 +122,12 @@ class App extends Component {
   //   return this.renderArticle(tome.getArticleByTitle(title));
   // }
 
-  pageChange(page) {
-    this.state.page = page;
+  setPageType(pageType) {
+    if (this.state.pageType != pageType) {
+      this.setState({
+        pageType: pageType
+      });
+    }
   }
 
   // reRender
@@ -149,8 +151,6 @@ class App extends Component {
       <HashRouter basename={"/" + appDirectory ? appDirectory : ""}>
         <div>
           <header>
-            <h1>Tome Use Example</h1>
-
             <div>
               <nav>
                 <ul>
@@ -162,8 +162,6 @@ class App extends Component {
                   </li>
                 </ul>
               </nav>
-
-              <nav>{this.renderArticleListings()}</nav>
             </div>
           </header>
 
@@ -171,19 +169,24 @@ class App extends Component {
             {/* Switch makes it so only the first matching Route is displayed */}
             <Switch>
               {/* When path is matched, Route returns a new given component */}
-              <Route exact path="/" component={Index} />
-              <Route exact path="/about" component={About} />
+              <Route
+                exact
+                path="/"
+                component={props => <Index {...props} parent={this} />}
+              />
+              {/* ^ a fancy way of writing component={Index} to pass props */}
+              <Route
+                exact
+                path="/about"
+                component={props => <About {...props} parent={this} />}
+              />
               <Route
                 path={"/:articleTitle"}
-                component={props => (
-                  <Article
-                    {...props}
-                    notifyPageChange={this.pageChange.bind(this)}
-                  />
-                )}
+                component={props => <Article {...props} parent={this} />}
               />
-              {/* ^ a fancy way of writing component={Article} to pass functions as props */}
             </Switch>
+
+            <nav>{this.renderArticleListings()}</nav>
           </main>
         </div>
       </HashRouter>
