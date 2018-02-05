@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import Tome from "tome-of-the-unknown"; // <- When it's a node_module
+import Tome from "tome-of-the-unknown";
 import "./App.css";
 import { HashRouter, Route, Link, Switch } from "react-router-dom";
+import Article from "./article/article";
+import About from "./about/about";
+import Index from "./index/index";
 
 let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
 
@@ -11,76 +14,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const tome = new Tome();
-
-const Index = props => {
-  props.parent.setPageType("index");
-  return (
-    <div>
-      <h1>Welcome</h1>
-      <p>Index Page</p>
-    </div>
-  );
-};
-
-const About = props => {
-  props.parent.setPageType("about");
-  return (
-    <div>
-      <h1>About</h1>
-      <p>About Me</p>
-    </div>
-  );
-};
-
-// const Article = (name, _this) => {
-class Article extends React.Component {
-  constructor(props) {
-    super();
-    this.state = { article: null };
-    this.articleTitle = props.match.params.articleTitle;
-  }
-
-  componentDidMount(props) {
-    // Load the article if user goes to a direct url
-    this.setArticleByTitle(this.articleTitle);
-  }
-
-  componentWillReceiveProps(props) {
-    // Load article when clicking a link
-    this.setArticleByTitle(props.match.params.articleTitle);
-  }
-
-  setArticleByTitle(title) {
-    // If this is actually an article, set it as a state variable
-    let article = tome.getArticleByTitle(title);
-    this.setState({
-      article: article
-    });
-    // Should be using REDUX for this stuff, tl;dr
-    this.props.parent.setPageType("detail");
-  }
-
-  render() {
-    if (!this.state.article) {
-      return <p>No article found.</p>;
-    } else {
-      return renderArticle(this.state.article);
-    }
-  }
-}
-
-// Return HTML for article data
-const renderArticle = article => {
-  return (
-    <div>
-      <Link to="/">&laquo; Back</Link>
-      <h1>{article.title}</h1>
-      £{article.price}
-      <br />
-      <div dangerouslySetInnerHTML={{ __html: article.content }} />
-    </div>
-  );
-};
 
 class App extends Component {
   constructor() {
@@ -135,6 +68,7 @@ class App extends Component {
   search(event) {
     let query = event.target.value;
 
+    this.setPageType("index");
     this.setState({
       articles: tome.searchArticlesByTitle(query)
     });
@@ -177,7 +111,9 @@ class App extends Component {
               />
               <Route
                 path={"/:articleTitle"}
-                component={props => <Article {...props} parent={this} />}
+                component={props => (
+                  <Article {...props} parent={this} tome={tome} />
+                )}
               />
             </Switch>
 
