@@ -12,10 +12,10 @@ if (process.env.NODE_ENV === "development") {
 
 const tome = new Tome();
 
-const Home = () => (
+const Index = () => (
   <div>
     <h1>Welcome</h1>
-    <p>Home Page</p>
+    <p>Index Page</p>
   </div>
 );
 
@@ -54,11 +54,10 @@ class Article extends React.Component {
 
   render() {
     if (!this.state.article) {
-      // Need to be using REDUX for this stuff, tl;dr
-      // this.props.passUp("home");
       return <p>No article found.</p>;
     } else {
-      // this.props.passUp("detail");
+      // Should be using REDUX for this stuff, tl;dr
+      this.props.notifyPageChange("detail");
       return renderArticle(this.state.article);
     }
   }
@@ -84,6 +83,7 @@ class App extends Component {
     super();
 
     this.state = {
+      page: "index",
       articles: tome.getArticles(),
       renderFlop: false
     };
@@ -100,9 +100,23 @@ class App extends Component {
 
   // Use the articles array we have to create listing HTML for each
   renderArticleListings() {
-    return this.state.articles.map((article, i) => {
-      return this.renderArticle(article, i);
-    });
+    console.log(this.state.page);
+
+    if (this.state.page === "index") {
+      return this.state.articles.map((article, i) => {
+        return (
+          <div key={i} className="article__listing">
+            {/* <Link to={article.url} onClick={this.reRender.bind(this)}>
+            {article.title}
+          </Link> */}
+            <Link to={article.url} replace={true}>
+              {article.title}
+            </Link>
+            <div>{this.snippet(article.content, 10)}</div>
+          </div>
+        );
+      });
+    }
   }
 
   // // Get a specific article from the data
@@ -110,8 +124,8 @@ class App extends Component {
   //   return this.renderArticle(tome.getArticleByTitle(title));
   // }
 
-  passUp() {
-    console.log("pass up");
+  pageChange(page) {
+    this.state.page = page;
   }
 
   // reRender
@@ -131,19 +145,6 @@ class App extends Component {
     );
   }
   render() {
-    let renderArticleListings = this.state.articles.map((article, i) => {
-      return (
-        <div key={i} className="article__listing">
-          {/* <Link to={article.url} onClick={this.reRender.bind(this)}>
-            {article.title}
-          </Link> */}
-          <Link to={article.url} replace={true}>
-            {article.title}
-          </Link>
-          <div>{this.snippet(article.content, 10)}</div>
-        </div>
-      );
-    });
     return (
       <HashRouter basename={"/" + appDirectory ? appDirectory : ""}>
         <div>
@@ -154,7 +155,7 @@ class App extends Component {
               <nav>
                 <ul>
                   <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/">Index</Link>
                   </li>
                   <li>
                     <Link to="/about">About</Link>
@@ -162,7 +163,7 @@ class App extends Component {
                 </ul>
               </nav>
 
-              <nav>{renderArticleListings}</nav>
+              <nav>{this.renderArticleListings()}</nav>
             </div>
           </header>
 
@@ -170,13 +171,18 @@ class App extends Component {
             {/* Switch makes it so only the first matching Route is displayed */}
             <Switch>
               {/* When path is matched, Route returns a new given component */}
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={Index} />
               <Route exact path="/about" component={About} />
               <Route
                 path={"/:articleTitle"}
-                component={Article}
-                passUp={this.passUp}
+                component={props => (
+                  <Article
+                    {...props}
+                    notifyPageChange={this.pageChange.bind(this)}
+                  />
+                )}
               />
+              {/* ^ a fancy way of writing component={Article} to pass functions as props */}
             </Switch>
           </main>
         </div>
