@@ -3,6 +3,12 @@ body {
   background: #eee;
   font-size: 8px;
 }
+header {
+  * {
+    display: inline-block;
+    margin: 0 1em;
+  }
+}
 .article {
   &__listing {
     padding: 1em;

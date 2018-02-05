@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Tome from "tome-of-the-unknown";
 import { HashRouter, Route, Link, Switch } from "react-router-dom";
+import store from "../store/store";
 
 // Return HTML for article data
 const renderArticle = article => {
@@ -24,18 +25,23 @@ export default class extends Component {
 
   componentDidMount(props) {
     // Load the article if user goes to a direct url
-    this.setArticleByTitle(this.articleTitle);
+    this.getArticleByTitle(this.articleTitle);
 
-    // Should be using REDUX for this stuff, tl;dr
-    this.props.parent.setPageType("detail");
+    // Let the app know that the pageType has changed
+    if (store.getState().pageType !== "article") {
+      store.dispatch({
+        type: "SET_PAGE_TYPE",
+        payload: "article"
+      });
+    }
   }
 
   componentWillReceiveProps(props) {
     // Load article when clicking a link
-    this.setArticleByTitle(props.match.params.articleTitle);
+    this.getArticleByTitle(props.match.params.articleTitle);
   }
 
-  setArticleByTitle(title) {
+  getArticleByTitle(title) {
     // If this is actually an article, set it as a state variable
     let article = this.props.tome.getArticleByTitle(title);
     this.setState({
