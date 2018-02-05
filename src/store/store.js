@@ -1,10 +1,10 @@
 import { createStore } from "redux";
 
-const reduxReducer = (state = [], action) => {
-  if (action.type == "DO_A_THING") {
+const reduxReducer = (state = { pageType: "index" }, action) => {
+  if (action.type == "SET_PAGE_TYPE") {
     // Avoid mutating state here..
     var newState = Object.assign({}, state);
-    newState.foo = Math.random();
+    newState.pageType = action.payload;
     return newState;
   }
   return state;
@@ -13,8 +13,7 @@ const reduxReducer = (state = [], action) => {
 let store = createStore(reduxReducer);
 
 store.subscribe(() => {
-  console.log("Aww yeah, Redux!!");
-  console.log(store.getState());
+  // console.log("Redux change:", store.getState());
 });
 
 export default store;

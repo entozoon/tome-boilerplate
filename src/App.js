@@ -16,11 +16,6 @@ if (process.env.NODE_ENV === "development") {
 
 const tome = new Tome();
 
-const doAThing = article => ({
-  type: "DO_A_THING",
-  payload: article
-});
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -32,15 +27,19 @@ class App extends Component {
     };
     console.log("Articles::", this.state.articles);
 
-    // console.log(tome.titleToUrl("Satan's Revengencer"));
-    // console.log(tome.getArticleByTitle("Article Name"));
-    // console.log(tome.getArticleByTitle("Article Name Other's And Stuff"));
+    store.subscribe(() => {
+      this.setState({
+        renderFlop: !this.state.renderFlop
+      });
+    });
   }
 
   // Use the articles array we have to create listing HTML for each
   renderArticleListings() {
     // Only show listings on index
-    if (this.state.pageType === "index") {
+    let state = store.getState();
+
+    if (state.pageType === "index") {
       return this.state.articles.map((article, i) => {
         return (
           <div key={i} className="article__listing">
@@ -48,16 +47,6 @@ class App extends Component {
             <div>{this.snippet(article.content, 10)}</div>
           </div>
         );
-      });
-    }
-  }
-
-  setPageType(pageType) {
-    store.dispatch(doAThing());
-
-    if (this.state.pageType !== pageType) {
-      this.setState({
-        pageType: pageType
       });
     }
   }
@@ -76,7 +65,10 @@ class App extends Component {
   search(event) {
     let query = event.target.value;
 
-    this.setPageType("index");
+    store.dispatch({
+      type: "SET_PAGE_TYPE",
+      payload: "index"
+    });
     this.setState({
       articles: tome.searchArticlesByTitle(query)
     });

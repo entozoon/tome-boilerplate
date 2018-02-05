@@ -1,10 +1,21 @@
 import React, { Component } from "react";
+import store from "../store/store";
 
 export default class extends Component {
   constructor(props) {
     super(props);
-    props.parent.setPageType("about");
   }
+
+  componentDidMount(props) {
+    // Let the app know that the pageType has changed
+    if (store.getState().pageType !== "about") {
+      store.dispatch({
+        type: "SET_PAGE_TYPE",
+        payload: "about"
+      });
+    }
+  }
+
   render() {
     return (
       <div>
