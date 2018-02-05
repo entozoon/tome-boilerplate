@@ -120,17 +120,28 @@ class App extends Component {
     this.setState({ renderFlop: !this.state.renderFlop });
   }
 
+  // Snippet
+  // Strip html tags and shorten by given length
+  snippet(html, length) {
+    return (
+      html
+        .replace(/(<([^>]+)>)/gi, "")
+        .substring(0, length)
+        .trim() + "..."
+    );
+  }
   render() {
-    let renderArticleLinks = this.state.articles.map((article, i) => {
+    let renderArticleListings = this.state.articles.map((article, i) => {
       return (
-        <li key={i}>
+        <div key={i} className="article__listing">
           {/* <Link to={article.url} onClick={this.reRender.bind(this)}>
             {article.title}
           </Link> */}
           <Link to={article.url} replace={true}>
             {article.title}
           </Link>
-        </li>
+          <div>{this.snippet(article.content, 10)}</div>
+        </div>
       );
     });
     return (
@@ -151,9 +162,7 @@ class App extends Component {
                 </ul>
               </nav>
 
-              <nav>
-                <ul>{renderArticleLinks}</ul>
-              </nav>
+              <nav>{renderArticleListings}</nav>
             </div>
           </header>
 

@@ -3,3 +3,10 @@ body {
   background: #eee;
   font-size: 8px;
 }
+.article {
+  &__listing {
+    padding: 1em;
+    margin: 1em 0;
+    background: #ccc;
+  }
+}
