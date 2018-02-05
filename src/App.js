@@ -98,10 +98,6 @@ class App extends Component {
     // console.log(tome.getArticleByTitle("Article Name Other's And Stuff"));
   }
 
-  navClick(e) {
-    console.log("No idea how to handle navigation yet, maybe react-router");
-  }
-
   // Use the articles array we have to create listing HTML for each
   renderArticleListings() {
     // Only show listings on index
@@ -117,23 +113,12 @@ class App extends Component {
     }
   }
 
-  // // Get a specific article from the data
-  // renderArticleByTitle(title) {
-  //   return this.renderArticle(tome.getArticleByTitle(title));
-  // }
-
   setPageType(pageType) {
-    if (this.state.pageType != pageType) {
+    if (this.state.pageType !== pageType) {
       this.setState({
         pageType: pageType
       });
     }
-  }
-
-  // reRender
-  // Force a re-render via click event (avoid ofc)
-  reRender(e) {
-    this.setState({ renderFlop: !this.state.renderFlop });
   }
 
   // Snippet
@@ -146,6 +131,15 @@ class App extends Component {
         .trim() + "..."
     );
   }
+
+  search(event) {
+    let query = event.target.value;
+
+    this.setState({
+      articles: tome.searchArticlesByTitle(query)
+    });
+  }
+
   render() {
     return (
       <HashRouter basename={"/" + appDirectory ? appDirectory : ""}>
@@ -162,6 +156,7 @@ class App extends Component {
                   </li>
                 </ul>
               </nav>
+              <input placeholder="Search" onChange={this.search.bind(this)} />
             </div>
           </header>
 
