@@ -19,3 +19,15 @@ Note, this builds and then pushes to git. The `/docs` folder is set up as the di
 ## Re-compile articles (also runs automatically before start/build/deploy)
 
     npm run compile
+
+## Structure
+
+Overview of the main things:
+
+    /docs   -> Deploy folder - dist files that github pages uses
+    /public -> Assets such as images
+    /src    -> The Code™
+        /index    -> Index component - homepage listings
+        /article  -> Article component (render HTML for article detail)
+        /articles -> Actual content for the site
+        App.js    -> Main program for the site
