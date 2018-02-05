@@ -5,6 +5,7 @@ import { HashRouter, Route, Link, Switch } from "react-router-dom";
 import Article from "./article/article";
 import About from "./about/about";
 import Index from "./index/index";
+import store from "./store/store";
 
 let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
 
@@ -15,9 +16,14 @@ if (process.env.NODE_ENV === "development") {
 
 const tome = new Tome();
 
+const doAThing = article => ({
+  type: "DO_A_THING",
+  payload: article
+});
+
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       pageType: "index",
@@ -47,6 +53,8 @@ class App extends Component {
   }
 
   setPageType(pageType) {
+    store.dispatch(doAThing());
+
     if (this.state.pageType !== pageType) {
       this.setState({
         pageType: pageType
