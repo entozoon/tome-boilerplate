@@ -14,32 +14,52 @@ const tome = new Tome();
 
 const Home = () => (
   <div>
-    <h1>Home page</h1>
+    <h1>Welcome</h1>
+    <p>Home Page</p>
   </div>
 );
 
 const About = () => (
   <div>
     <h1>About</h1>
+    <p>About Me</p>
   </div>
 );
 
 // const Article = (name, _this) => {
 class Article extends React.Component {
-  constructor(name) {
-    console.log("article");
+  constructor(props) {
     super();
-    // If this is actually an article, show it.
-    this.article = tome.getArticleByTitle(name.match.params.articleTitle);
+    this.state = { article: null };
+    this.articleTitle = props.match.params.articleTitle;
   }
+
+  componentDidMount(props) {
+    // Load the article if user goes to a direct url
+    this.setArticleByTitle(this.articleTitle);
+  }
+
+  componentWillReceiveProps(props) {
+    // Load article when clicking a link
+    this.setArticleByTitle(props.match.params.articleTitle);
+  }
+
+  setArticleByTitle(title) {
+    // If this is actually an article, set it as a state variable
+    let article = tome.getArticleByTitle(title);
+    this.setState({
+      article: article
+    });
+  }
+
   render() {
-    if (!this.article) {
+    if (!this.state.article) {
       // Need to be using REDUX for this stuff, tl;dr
       // this.props.passUp("home");
       return <p>No article found.</p>;
     } else {
       // this.props.passUp("detail");
-      return renderArticle(this.article);
+      return renderArticle(this.state.article);
     }
   }
 }
@@ -64,7 +84,6 @@ class App extends Component {
     super();
 
     this.state = {
-      header: tome.getHeader(),
       articles: tome.getArticles(),
       renderFlop: false
     };
@@ -102,12 +121,13 @@ class App extends Component {
   }
 
   render() {
-    console.log("render");
-
-    let articleLinksOrWhatever = this.state.articles.map((article, i) => {
+    let renderArticleLinks = this.state.articles.map((article, i) => {
       return (
         <li key={i}>
-          <Link to={article.url} onClick={this.reRender.bind(this)}>
+          {/* <Link to={article.url} onClick={this.reRender.bind(this)}>
+            {article.title}
+          </Link> */}
+          <Link to={article.url} replace={true}>
             {article.title}
           </Link>
         </li>
@@ -132,25 +152,23 @@ class App extends Component {
               </nav>
 
               <nav>
-                <ul>{articleLinksOrWhatever}</ul>
+                <ul>{renderArticleLinks}</ul>
               </nav>
-
-              {/* Switch makes it so only the first matching Route is displayed */}
-              <Switch>
-                {/* When path is matched, Route returns a new given component */}
-                <Route exact path="/" component={Home} />
-                <Route exact path="/about" component={About} />
-                <Route
-                  path={"/:articleTitle"}
-                  component={Article}
-                  passUp={this.passUp}
-                />
-              </Switch>
             </div>
           </header>
 
           <main>
-            <p>{this.state.header}</p>
+            {/* Switch makes it so only the first matching Route is displayed */}
+            <Switch>
+              {/* When path is matched, Route returns a new given component */}
+              <Route exact path="/" component={Home} />
+              <Route exact path="/about" component={About} />
+              <Route
+                path={"/:articleTitle"}
+                component={Article}
+                passUp={this.passUp}
+              />
+            </Switch>
           </main>
         </div>
       </HashRouter>
