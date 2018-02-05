@@ -27,7 +27,9 @@ Overview of the main things:
     /docs   -> Deploy folder - dist files that github pages uses
     /public -> Assets such as images
     /src    -> The Code™
-        /index    -> Index component - homepage listings
-        /article  -> Article component (render HTML for article detail)
-        /articles -> Actual content for the site
-        App.js    -> Main program for the site
+        /index             -> Index component - homepage listings
+        /ArticleComponents -> Render HTML for article listings/detail
+        /articles          -> Actual content for the site
+        App.js             -> Main program for the site
+
+^ Might not be up to date!

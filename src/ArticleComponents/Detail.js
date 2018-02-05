@@ -25,7 +25,7 @@ export default class extends Component {
 
   componentDidMount(props) {
     // Load the article if user goes to a direct url
-    this.setArticleByTitle(this.articleTitle);
+    this.getArticleByTitle(this.articleTitle);
 
     // Let the app know that the pageType has changed
     if (store.getState().pageType !== "article") {
@@ -38,10 +38,10 @@ export default class extends Component {
 
   componentWillReceiveProps(props) {
     // Load article when clicking a link
-    this.setArticleByTitle(props.match.params.articleTitle);
+    this.getArticleByTitle(props.match.params.articleTitle);
   }
 
-  setArticleByTitle(title) {
+  getArticleByTitle(title) {
     // If this is actually an article, set it as a state variable
     let article = this.props.tome.getArticleByTitle(title);
     this.setState({
