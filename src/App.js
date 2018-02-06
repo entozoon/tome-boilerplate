@@ -16,12 +16,13 @@ import Contact from "./Contact/Contact";
 import Index from "./index/index";
 import store from "./store/store";
 
-let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
-
-if (process.env.NODE_ENV === "development") {
-  // No subdir if localhost
-  appDirectory = "/";
-}
+// let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
+// if (process.env.NODE_ENV === "development") {
+//   // No subdir if localhost
+//   appDirectory = "/";
+// }
+// This *should* use package.json homepage and if trailing slash it'll be fine
+let appDirectory = "/";
 
 const tome = new Tome();
 
@@ -82,6 +83,7 @@ class App extends Component {
                   <TransitionGroup>
                     {/* https://github.com/reactjs/react-transition-group/issues/136#issuecomment-341386985 */}
                     {/* https://reactcommunity.org/react-transition-group/#Transition-prop-appear */}
+                    {/* https://codesandbox.io/s/43v5wj62q9?from-embed */}
                     <CSSTransition
                       key={locationKey}
                       classNames="fade"
