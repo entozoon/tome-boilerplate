@@ -43,13 +43,19 @@ class App extends Component {
     });
   }
 
-  search(event) {
-    let query = event.target.value;
+  setLocation(location, target) {
+    // location.push(target);
+    location.pathname = target;
+  }
 
+  search(query) {
     store.dispatch({
       type: "SET_PAGE_TYPE",
       payload: "index"
     });
+
+    // location.push("/");
+
     this.setState({
       articles: tome.searchArticlesByTitle(query)
     });
@@ -63,11 +69,13 @@ class App extends Component {
             // let locationKey = location.pathname.split("/")[1] || "/";
             let locationKey = location.pathname;
 
-            console.log(locationKey);
+            // if (store.getState().pageType === "index") {
+            //   location.pathname = "/";
+            // }
 
             return (
               <div>
-                <Header search={this.search.bind(this)} />
+                <Header parent={this} location={location} />
 
                 <main>
                   {/* Switch makes it so only the first matching Route is displayed */}

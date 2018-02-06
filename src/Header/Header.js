@@ -2,23 +2,39 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export default class extends Component {
+  constructor(props) {
+    super(props);
+    this.location = props.location;
+  }
   render() {
     return (
       <header>
         <nav>
           <ul>
             <li>
-              <Link to="/">Index</Link>
+              <Link to="/" replace={true}>
+                Index
+              </Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/about" replace={true}>
+                About
+              </Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/contact" replace={true}>
+                Contact
+              </Link>
             </li>
           </ul>
         </nav>
-        <input placeholder="Search" onChange={this.props.search.bind(this)} />
+        <input
+          placeholder="Search"
+          onChange={event => {
+            this.props.parent.search(event.target.value);
+            this.props.parent.setLocation(this.props.location, "/");
+          }}
+        />
       </header>
     );
   }
