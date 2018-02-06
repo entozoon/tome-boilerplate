@@ -13,6 +13,9 @@ export default class extends Component {
             <li>
               <Link to="/about">About</Link>
             </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
           </ul>
         </nav>
         <input placeholder="Search" onChange={this.props.search.bind(this)} />

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Tome from "tome-of-the-unknown";
-import { HashRouter, Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import store from "../store/store";
 
 // Return HTML for article data

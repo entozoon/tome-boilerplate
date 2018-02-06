@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import store from "../store/store";
-import ArticleListings from "../ArticleComponents/Listings";
 
 export default class extends Component {
   constructor(props) {
@@ -9,10 +8,10 @@ export default class extends Component {
 
   componentDidMount(props) {
     // Let the app know that the pageType has changed
-    if (store.getState().pageType !== "index") {
+    if (store.getState().pageType !== "contact") {
       store.dispatch({
         type: "SET_PAGE_TYPE",
-        payload: "index"
+        payload: "about"
       });
     }
   }
@@ -20,10 +19,8 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome</h1>
-        <p>Index Page</p>
-
-        {/* <ArticleListings articles={this.props.articles} /> */}
+        <h1>Contact</h1>
+        <p>Contact me</p>
       </div>
     );
   }
