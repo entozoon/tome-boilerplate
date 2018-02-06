@@ -23,7 +23,7 @@ export default class extends Component {
         <h1>Welcome</h1>
         <p>Index Page</p>
 
-        {/* <ArticleListings articles={this.props.articles} /> */}
+        <ArticleListings articles={this.props.articles} />
       </div>
     );
   }

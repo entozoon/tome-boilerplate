@@ -17,31 +17,14 @@ header {
   }
 }
 
-.example-enter {
-  opacity: 0.01;
-}
-
-.example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-.example-exit {
-  opacity: 1;
-}
-
-.example-exit.example-exit-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
-}
-
-/// ***
+// Transitions
 .fade-enter {
   opacity: 0.01;
 }
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 1.5s ease-in;
 }
 
 .fade-exit {
@@ -50,17 +33,5 @@ header {
 
 .fade-exit.fade-exit-active {
   opacity: 0.01;
-  transition: opacity 800ms ease-in;
-}
-
-//
-.fade-appear,
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-appear-active,
-.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1.5s;
+  transition: opacity 1.5s ease-in;
 }
