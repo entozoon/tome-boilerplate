@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.location = props.location;
   }
   render() {
     return (

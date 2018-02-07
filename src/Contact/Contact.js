@@ -1,23 +1,19 @@
 import React, { Component } from "react";
 import store from "../store/store";
+import ContactRender from "./ContactRender";
 
 export default class extends Component {
   componentDidMount(props) {
-    // Let the app know that the pageType has changed
-    if (store.getState().pageType !== "contact") {
-      store.dispatch({
-        type: "SET_PAGE_TYPE",
-        payload: "about"
-      });
-    }
+    // // Let the app know that the pageType has changed
+    // if (store.getState().pageType !== "contact") {
+    //   store.dispatch({
+    //     type: "SET_PAGE_TYPE",
+    //     payload: "contact"
+    //   });
+    // }
   }
 
   render() {
-    return (
-      <div>
-        <h1>Contact</h1>
-        <p>Contact me</p>
-      </div>
-    );
+    return ContactRender(this);
   }
 }

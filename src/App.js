@@ -48,10 +48,10 @@ class App extends Component {
   }
 
   search(query) {
-    store.dispatch({
-      type: "SET_PAGE_TYPE",
-      payload: "index"
-    });
+    // store.dispatch({
+    //   type: "SET_PAGE_TYPE",
+    //   payload: "index"
+    // });
 
     // location.push("/");
 

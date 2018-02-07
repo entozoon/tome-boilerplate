@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import store from "../store/store";
+import DetailRender from "./DetailRender";
 
 export default class extends Component {
   constructor(props) {
@@ -13,13 +14,13 @@ export default class extends Component {
     // Load the article if user goes to a direct url
     this.getArticleByTitle(this.articleTitle);
 
-    // Let the app know that the pageType has changed
-    if (store.getState().pageType !== "article") {
-      store.dispatch({
-        type: "SET_PAGE_TYPE",
-        payload: "article"
-      });
-    }
+    // // Let the app know that the pageType has changed
+    // if (store.getState().pageType !== "article") {
+    //   store.dispatch({
+    //     type: "SET_PAGE_TYPE",
+    //     payload: "article"
+    //   });
+    // }
   }
 
   componentWillReceiveProps(props) {
@@ -37,21 +38,11 @@ export default class extends Component {
 
   render() {
     if (!this.state.article) {
-      return <p>No article found.</p>;
+      // Fun fact: The wrapper elements in these if/else must be the same as one another or the transition doesn't kick in properly (SIGH)
+      return <div>No article found.</div>;
     } else {
       // Return HTML for article data
-      return (
-        // <div> doesn't trigger transition classes for some reason and <p> is not a good solution!
-        <p>
-          <Link to="/">&laquo; Back</Link>
-          <h1>{this.state.article.title}</h1>
-          £{this.state.article.price}
-          <br />
-          <div
-            dangerouslySetInnerHTML={{ __html: this.state.article.content }}
-          />
-        </p>
-      );
+      return DetailRender(this, this.state.article);
     }
   }
 }

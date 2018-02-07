@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import ListingRender from "./ListingRender";
 
 export default class extends Component {
   // Snippet
@@ -14,11 +15,6 @@ export default class extends Component {
   }
 
   render() {
-    return (
-      <div className="article__listing">
-        <Link to={this.props.article.url}>{this.props.article.title}</Link>
-        <div>{this.snippet(this.props.article.content, 10)}</div>
-      </div>
-    );
+    return ListingRender(this, this.props.article);
   }
 }
