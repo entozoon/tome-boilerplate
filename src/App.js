@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import Tome from "tome-of-the-unknown";
 import "./App.css";
-import { HashRouter, Route, Link, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import {
   TransitionGroup,
-  Transition,
-  CSSTransitionGroup,
+  //Transition,
   CSSTransition
 } from "react-transition-group";
 import Header from "./Header/Header";
-import ArticleListings from "./ArticleComponents/Listings";
 import ArticleDetail from "./ArticleComponents/Detail";
 import About from "./About/About";
 import Contact from "./Contact/Contact";

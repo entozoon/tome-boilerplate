@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Tome from "tome-of-the-unknown";
 import { Link } from "react-router-dom";
 import store from "../store/store";
 

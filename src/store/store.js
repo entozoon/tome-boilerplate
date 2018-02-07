@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 
 const reduxReducer = (state = { pageType: "index" }, action) => {
-  if (action.type == "SET_PAGE_TYPE") {
+  if (action.type === "SET_PAGE_TYPE") {
     // Avoid mutating state here..
     var newState = Object.assign({}, state);
     newState.pageType = action.payload;

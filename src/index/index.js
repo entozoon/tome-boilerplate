@@ -3,10 +3,6 @@ import store from "../store/store";
 import ArticleListings from "../ArticleComponents/Listings";
 
 export default class extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount(props) {
     // Let the app know that the pageType has changed
     if (store.getState().pageType !== "index") {
