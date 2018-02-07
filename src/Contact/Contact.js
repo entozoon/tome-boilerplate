@@ -4,7 +4,7 @@ import store from "../store/store";
 export default class extends Component {
   componentDidMount(props) {
     // Let the app know that the pageType has changed
-    if (store.getState().pageType !== "about") {
+    if (store.getState().pageType !== "contact") {
       store.dispatch({
         type: "SET_PAGE_TYPE",
         payload: "about"
@@ -15,8 +15,8 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <h1>About</h1>
-        <p>About Me</p>
+        <h1>Contact</h1>
+        <p>Contact me</p>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 {
   "name": "tome-boilerplate",
-  "homepage": "https://entozoon.github.io/tome-boilerplate",
+  "homepage": "https://entozoon.github.io/tome-boilerplate/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +14,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
+    "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
     "tome-of-the-unknown": "^0.1.0"
   },
@@ -21,7 +22,8 @@
     "prestart": "npm run compile",
     "start": "npm-run-all --parallel start:*",
     "start:react": "cross-env NODE_ENV=development react-scripts start",
-    "start:scss": "node-sass src/ --output src/ --output-style compressed --watch",
+    "start:scss":
+      "node-sass src/ --output src/ --output-style compressed --watch",
     "prebuild": "del-cli docs && npm run compile",
     "build": "react-scripts build && ren build docs",
     "compile": "node node_modules/tome-of-the-unknown/compile-articles.js",

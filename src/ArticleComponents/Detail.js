@@ -1,20 +1,6 @@
 import React, { Component } from "react";
-import Tome from "tome-of-the-unknown";
-import { HashRouter, Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import store from "../store/store";
-
-// Return HTML for article data
-const renderArticle = article => {
-  return (
-    <div>
-      <Link to="/">&laquo; Back</Link>
-      <h1>{article.title}</h1>
-      £{article.price}
-      <br />
-      <div dangerouslySetInnerHTML={{ __html: article.content }} />
-    </div>
-  );
-};
 
 export default class extends Component {
   constructor(props) {
@@ -53,7 +39,19 @@ export default class extends Component {
     if (!this.state.article) {
       return <p>No article found.</p>;
     } else {
-      return renderArticle(this.state.article);
+      // Return HTML for article data
+      return (
+        // <div> doesn't trigger transition classes for some reason and <p> is not a good solution!
+        <p>
+          <Link to="/">&laquo; Back</Link>
+          <h1>{this.state.article.title}</h1>
+          £{this.state.article.price}
+          <br />
+          <div
+            dangerouslySetInnerHTML={{ __html: this.state.article.content }}
+          />
+        </p>
+      );
     }
   }
 }

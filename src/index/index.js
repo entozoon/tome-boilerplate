@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import store from "../store/store";
+import ArticleListings from "../ArticleComponents/Listings";
 
 export default class extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount(props) {
     // Let the app know that the pageType has changed
     if (store.getState().pageType !== "index") {
@@ -21,6 +18,8 @@ export default class extends Component {
       <div>
         <h1>Welcome</h1>
         <p>Index Page</p>
+
+        <ArticleListings articles={this.props.articles} />
       </div>
     );
   }

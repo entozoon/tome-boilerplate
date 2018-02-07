@@ -1,20 +1,26 @@
 import React, { Component } from "react";
 import Tome from "tome-of-the-unknown";
 import "./App.css";
-import { HashRouter, Route, Link, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
+import {
+  TransitionGroup,
+  //Transition,
+  CSSTransition
+} from "react-transition-group";
 import Header from "./Header/Header";
 import ArticleDetail from "./ArticleComponents/Detail";
-import ArticleListings from "./ArticleComponents/Listings";
-import About from "./about/about";
+import About from "./About/About";
+import Contact from "./Contact/Contact";
 import Index from "./index/index";
 import store from "./store/store";
 
-let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
-
-if (process.env.NODE_ENV === "development") {
-  // No subdir if localhost
-  appDirectory = "/";
-}
+// let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
+// if (process.env.NODE_ENV === "development") {
+//   // No subdir if localhost
+//   appDirectory = "/";
+// }
+// This *should* use package.json homepage and if trailing slash it'll be fine
+let appDirectory = "/";
 
 const tome = new Tome();
 
@@ -36,13 +42,19 @@ class App extends Component {
     });
   }
 
-  search(event) {
-    let query = event.target.value;
+  setLocation(location, target) {
+    // location.push(target);
+    location.pathname = target;
+  }
 
+  search(query) {
     store.dispatch({
       type: "SET_PAGE_TYPE",
       payload: "index"
     });
+
+    // location.push("/");
+
     this.setState({
       articles: tome.searchArticlesByTitle(query)
     });
@@ -51,27 +63,72 @@ class App extends Component {
   render() {
     return (
       <HashRouter basename={"/" + appDirectory ? appDirectory : ""}>
-        <div>
-          <Header search={this.search.bind(this)} />
+        <Route
+          render={({ location }) => {
+            // let locationKey = location.pathname.split("/")[1] || "/";
+            let locationKey = location.pathname;
 
-          <main>
-            {/* Switch makes it so only the first matching Route is displayed */}
-            <Switch>
-              {/* When path is matched, Route returns a new given component */}
-              <Route exact path="/" component={Index} />
-              <Route exact path="/about" component={About} />} />
-              <Route
-                path={"/:articleTitle"}
-                component={props => (
-                  <ArticleDetail {...props} parent={this} tome={tome} />
-                )}
-              />
-              {/* ^ a fancy way of writing component={Index} to pass props */}
-            </Switch>
+            // if (store.getState().pageType === "index") {
+            //   location.pathname = "/";
+            // }
 
-            <ArticleListings articles={this.state.articles} />
-          </main>
-        </div>
+            return (
+              <div>
+                <Header parent={this} location={location} />
+
+                <main>
+                  {/* Switch makes it so only the first matching Route is displayed */}
+                  <TransitionGroup>
+                    {/* https://github.com/reactjs/react-transition-group/issues/136#issuecomment-341386985 */}
+                    {/* https://reactcommunity.org/react-transition-group/#Transition-prop-appear */}
+                    {/* https://codesandbox.io/s/43v5wj62q9?from-embed */}
+                    <CSSTransition
+                      key={locationKey}
+                      classNames="fade"
+                      timeout={2000}
+                      appear={true}
+                      exit={false}
+                      component="div"
+                    >
+                      <Switch location={location}>
+                        {/* When path is matched, Route returns a new given component */}
+                        <Route
+                          exact
+                          path="/"
+                          location={location}
+                          render={() => (
+                            <Index articles={this.state.articles} />
+                          )}
+                        />
+                        {/* ^ a fancy comparable to component={Index} but pass props */}
+
+                        <Route
+                          exact
+                          path="/about"
+                          location={location}
+                          component={About}
+                        />
+                        <Route
+                          exact
+                          path="/contact"
+                          location={location}
+                          component={Contact}
+                        />
+                        <Route
+                          path={"/:articleTitle"}
+                          location={location}
+                          render={props => (
+                            <ArticleDetail {...props} tome={tome} />
+                          )}
+                        />
+                      </Switch>
+                    </CSSTransition>
+                  </TransitionGroup>
+                </main>
+              </div>
+            );
+          }}
+        />
       </HashRouter>
     );
   }
