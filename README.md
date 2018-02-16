@@ -7,7 +7,8 @@
 * Create your site as a github repo
 * Copy the contents of this repo to it
 * Edit `package.json` changing the various occurrences of tome-boilerplate to your repo details
-* Edit any `*.render.js` file to customise your HTML, and `*.scss` for styles.
+* Edit all the files in `/public` with the basic details of your site
+* Edit any `*.render.js` file to customise your HTML, and `*.scss` for styles
 
 ## Dev
 
