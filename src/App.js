@@ -77,7 +77,7 @@ class App extends Component {
                     <CSSTransition
                       key={locationKey}
                       classNames="fade"
-                      timeout={500}
+                      timeout={250}
                       appear={true}
                       exit={false}
                       component="div"

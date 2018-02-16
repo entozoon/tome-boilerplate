@@ -5,14 +5,14 @@
 }
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 0.5s ease-in; // See timing note above
+  transition: opacity 0.25s ease-out; // See timing note above
 }
 .fade-exit {
   opacity: 1;
 }
 .fade-exit.fade-exit-active {
   opacity: 0.01;
-  transition: opacity 0.5s ease-in; // See timing note above
+  transition: opacity 0.25s ease-out; // See timing note above
 }
 
 // Temporary styles and junk
