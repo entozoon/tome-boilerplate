@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import store from "../store/store";
 import Listings from "../ArticleComponents/Listings";
 
 export default class extends Component {

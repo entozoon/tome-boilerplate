@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import store from "../store/store";
 import DetailRender from "./Detail.render";
 
 export default class extends Component {

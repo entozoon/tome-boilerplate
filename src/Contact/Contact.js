@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import store from "../store/store";
+import Component from "react";
 import ContactRender from "./Contact.render";
 
 export default class extends Component {
