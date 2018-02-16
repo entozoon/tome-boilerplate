@@ -9,7 +9,14 @@ export default class extends Component {
 
     // Use the articles array we have to create listing HTML for each
     return this.props.articles.map((article, i) => {
-      return <Listing key={i} article={article} className="article__listing" />;
+      return (
+        <Listing
+          key={i}
+          article={article}
+          className="article__listing"
+          tome={this.props.tome}
+        />
+      );
     });
   }
 }

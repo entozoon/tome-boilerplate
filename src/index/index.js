@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import store from "../store/store";
-import ArticleListings from "../ArticleComponents/Listings";
+import Listings from "../ArticleComponents/Listings";
 
 export default class extends Component {
   componentDidMount(props) {
@@ -19,7 +19,7 @@ export default class extends Component {
         <h1>Welcome</h1>
         <p>Index Page</p>
 
-        <ArticleListings articles={this.props.articles} />
+        <Listings articles={this.props.articles} tome={this.props.tome} />
       </div>
     );
   }

@@ -97,7 +97,7 @@ class App extends Component {
                           path="/"
                           location={location}
                           render={() => (
-                            <Index articles={this.state.articles} />
+                            <Index articles={this.state.articles} tome={tome} />
                           )}
                         />
                         {/* ^ a fancy comparable to component={Index} but pass props */}
