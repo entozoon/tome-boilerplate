@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import ListingRender from "./ListingRender";
+import ListingRender from "./Listing.render";
 
 export default class extends Component {
   render() {

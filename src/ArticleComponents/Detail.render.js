@@ -10,5 +10,7 @@ export default (parent, article) => (
       <br />
       <div dangerouslySetInnerHTML={{ __html: article.content }} />
     </div>
+
+    <p className="path">/src/ArticleComponents/Detail.render.js</p>
   </div>
 );

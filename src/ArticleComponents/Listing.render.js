@@ -5,5 +5,7 @@ export default (parent, tome, article) => (
   <div className="article__listing">
     <Link to={article.url}>{article.title}</Link>
     <div>{tome.snippet(article.content, 20)}</div>
+
+    <p className="path">/src/ArticleComponents/Listing.render.js</p>
   </div>
 );

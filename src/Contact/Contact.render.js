@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default parent => (
   <div>
     <h1>Contact</h1>
-    <p>Contact me</p>
+
+    <p className="path">/src/Contact/Contact.render.js</p>
   </div>
 );

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import store from "../store/store";
-import DetailRender from "./DetailRender";
+import DetailRender from "./Detail.render";
 
 export default class extends Component {
   constructor(props) {
@@ -13,14 +13,6 @@ export default class extends Component {
   componentDidMount(props) {
     // Load the article if user goes to a direct url
     this.getArticleByTitle(this.articleTitle);
-
-    // // Let the app know that the pageType has changed
-    // if (store.getState().pageType !== "article") {
-    //   store.dispatch({
-    //     type: "SET_PAGE_TYPE",
-    //     payload: "article"
-    //   });
-    // }
   }
 
   componentWillReceiveProps(props) {

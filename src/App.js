@@ -11,7 +11,7 @@ import Header from "./Header/Header";
 import ArticleDetail from "./ArticleComponents/Detail";
 import About from "./About/About";
 import Contact from "./Contact/Contact";
-import Index from "./index/index";
+import Index from "./Index/Index";
 import store from "./store/store";
 
 // let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
@@ -85,7 +85,7 @@ class App extends Component {
                     <CSSTransition
                       key={locationKey}
                       classNames="fade"
-                      timeout={2000}
+                      timeout={500}
                       appear={true}
                       exit={false}
                       component="div"

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default parent => (
   <div>
     <h1>About</h1>
-    <p>About Me</p>
+
+    <p className="path">/src/About/About.render.js</p>
   </div>
 );

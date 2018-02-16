@@ -1,7 +1,25 @@
+// Transitions
+// If changing transition timing, you also want to change the CSSTransition timeout value in App.js
+.fade-enter {
+  opacity: 0.01;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in; // See timing note above
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 0.5s ease-in; // See timing note above
+}
+
+// Temporary styles and junk
 body {
   font-family: tahoma;
   background: #eee;
-  font-size: 8px;
+  font-size: 10px;
 }
 header {
   * {
@@ -9,29 +27,13 @@ header {
     margin: 0 1em;
   }
 }
+.path {
+  opacity: 0.5;
+}
 .article {
   &__listing {
     padding: 1em;
     margin: 1em 0;
     background: #ccc;
   }
-}
-
-// Transitions
-.fade-enter {
-  opacity: 0.01;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1.5s ease-in;
-}
-
-.fade-exit {
-  opacity: 1;
-}
-
-.fade-exit.fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 1.5s ease-in;
 }
