@@ -14,14 +14,6 @@ import Contact from "./Contact/Contact";
 import Index from "./Index/Index";
 import store from "./store/store";
 
-// let appDirectory = "tome-boilerplate"; // this may typically be null, if on a custom domain
-// if (process.env.NODE_ENV === "development") {
-//   // No subdir if localhost
-//   appDirectory = "/";
-// }
-// This *should* use package.json homepage and if trailing slash it'll be fine
-let appDirectory = "/";
-
 const tome = new Tome();
 
 class App extends Component {
@@ -62,7 +54,7 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter basename={"/" + appDirectory ? appDirectory : ""}>
+      <HashRouter basename="/">
         <Route
           render={({ location }) => {
             // let locationKey = location.pathname.split("/")[1] || "/";

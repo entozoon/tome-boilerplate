@@ -1,13 +1,17 @@
 # Tome of the Unknown Boilerplate
 
-[**Demonstration**](https://entozoon.github.io/tome-boilerplate/) of how you might go about using the [Tome of the Unknown](https://entozoon.github.io/tome-of-the-unknown) package.
+[**Demonstration**](https://entozoon.github.io/tome-boilerplate/) of how you might go about using the [Tome of the Unknown](https://entozoon.github.io/tome-of-the-unknown) package for a mega simple, super fast, blog style SPA with flat file structure.
 
-## Install project
+## How do I actually use this bloody thing to make my own site?
 
-    npm i
+* Create your site as a github repo
+* Copy the contents of this repo to it
+* Edit `package.json` changing the various occurrences of tome-boilerplate to your repo details
+* Edit any `*.render.js` file to customise your HTML, and `*.scss` for styles.
 
 ## Dev
 
+    npm i
     npm start
 
 ## Deploy
