@@ -28,7 +28,7 @@ export default (parent, props) => (
       placeholder="Search"
       onChange={event => {
         props.parent.search(event.target.value);
-        props.parent.setLocation(this.props.location, "/");
+        props.parent.setLocation(props.location, "/");
       }}
     />
   </header>
