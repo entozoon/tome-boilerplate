@@ -38,3 +38,35 @@ Overview of the main things:
         App.js             -> Main program for the site
 
 ^ Might not be up to date!
+
+## How Do I Actually Use This Bloody Thing?
+
+### General
+
+Edit any `*.render.js` file to customise your HTML, and `*.scss` for styles
+
+### Add Image - Render template
+
+(Automatically moves assets for deploy)
+See how `logo.png` was added in `Header.render.js`
+
+    import logo from "./logo.png";
+    <img src={logo} alt="" />
+
+### Add Image - CSS
+
+(Automatically moves assets for deploy)
+
+    background: url(/src/images/foo.jpg)
+
+### Add Image - Article content.html
+
+Add your image into `/public/images` and refer to it with:
+
+    <image src="/images/article-image.jpg" />
+
+Anything in `/public` is moved into `/dist` when the project builds/deploys.
+
+### Other stuff??
+
+Refer to the [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) as this is what it's built on

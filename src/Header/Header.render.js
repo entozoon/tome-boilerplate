@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "./logo.png";
 
 export default (parent, props) => (
   <header>
+    <img src={logo} alt="" />
     <nav>
       <ul>
         <li>
