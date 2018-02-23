@@ -16,7 +16,7 @@
     "react-scripts": "1.1.0",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
-    "tome-of-the-unknown": "^0.1.0"
+    "tome-of-the-unknown": "*"
   },
   "scripts": {
     "prestart": "npm run compile",
